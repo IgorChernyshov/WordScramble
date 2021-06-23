@@ -13,6 +13,7 @@
 		D6FE56BA2683783800CF04FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6FE56B82683783800CF04FD /* Main.storyboard */; };
 		D6FE56BC2683783900CF04FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6FE56BB2683783900CF04FD /* Assets.xcassets */; };
 		D6FE56BF2683783900CF04FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6FE56BD2683783900CF04FD /* LaunchScreen.storyboard */; };
+		D6FE56C826838B7B00CF04FD /* start.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6FE56C726838B7B00CF04FD /* start.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D6FE56BB2683783900CF04FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6FE56BE2683783900CF04FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6FE56C02683783900CF04FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6FE56C726838B7B00CF04FD /* start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = start.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				D6FE56BB2683783900CF04FD /* Assets.xcassets */,
 				D6FE56BD2683783900CF04FD /* LaunchScreen.storyboard */,
 				D6FE56C02683783900CF04FD /* Info.plist */,
+				D6FE56C726838B7B00CF04FD /* start.txt */,
 			);
 			path = WordScramble;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6FE56BF2683783900CF04FD /* LaunchScreen.storyboard in Resources */,
+				D6FE56C826838B7B00CF04FD /* start.txt in Resources */,
 				D6FE56BC2683783900CF04FD /* Assets.xcassets in Resources */,
 				D6FE56BA2683783800CF04FD /* Main.storyboard in Resources */,
 			);
