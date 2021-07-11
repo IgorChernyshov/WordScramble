@@ -7,10 +7,15 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+final class ViewController: UITableViewController {
 
-	var allWords = [String]()
-	var usedWords = [String]()
+	private var currentWord: String = ""
+	private var allWords = [String]()
+	private var usedWords = [String]()
+
+	private enum Constant {
+		static let savedWord = "savedWord"
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,16 +28,26 @@ class ViewController: UITableViewController {
 			allWords = startWords.components(separatedBy: "\n")
 		}
 
-		if allWords.isEmpty {
-			allWords = ["silkworm"]
-		}
+		loadGame()
+	}
 
-		startGame()
+	private func loadGame() {
+		guard let savedWord = UserDefaults.standard.string(forKey: Constant.savedWord) else { return startGame() }
+		configureGame(word: savedWord)
 	}
 
 	@objc private func startGame() {
-		title = allWords.randomElement()
+		UserDefaults.standard.setValue([], forKey: currentWord)
+		guard let randomWord = allWords.randomElement()?.lowercased() else { fatalError("Words are missing") }
+		UserDefaults.standard.setValue(randomWord, forKey: Constant.savedWord)
+		configureGame(word: randomWord)
+	}
+
+	private func configureGame(word: String) {
+		currentWord = word
+		title = currentWord
 		usedWords.removeAll(keepingCapacity: true)
+		usedWords = UserDefaults.standard.array(forKey: currentWord) as? [String] ?? []
 		tableView.reloadData()
 	}
 
@@ -55,8 +70,8 @@ class ViewController: UITableViewController {
 		guard isLongEnough(word: lowercasedAnswer) else {
 			return showError(title: "Word is too short", message: "Your word must have three letters or more")
 		}
-		guard let screenTitle = title?.lowercased(), isPossible(word: lowercasedAnswer, screenTitle: screenTitle) else {
-			return showError(title: "Word not possible", message: "You can't spell that word from \(title ?? "the one given")")
+		guard isPossible(word: lowercasedAnswer) else {
+			return showError(title: "Word not possible", message: "You can't spell that word from \(currentWord)")
 		}
 		guard isOriginal(word: lowercasedAnswer) else {
 			return showError(title: "Word used already", message: "Be more original!")
@@ -66,6 +81,7 @@ class ViewController: UITableViewController {
 		}
 
 		usedWords.insert(lowercasedAnswer, at: 0)
+		UserDefaults.standard.set(usedWords, forKey: currentWord)
 		let indexPath = IndexPath(row: 0, section: 0)
 		tableView.insertRows(at: [indexPath], with: .automatic)
 	}
@@ -74,8 +90,8 @@ class ViewController: UITableViewController {
 		word.count >= 3
 	}
 
-	private func isPossible(word: String, screenTitle: String) -> Bool {
-		var tempWord = screenTitle
+	private func isPossible(word: String) -> Bool {
+		var tempWord = currentWord
 
 		for letter in word {
 			if let position = tempWord.firstIndex(of: letter) {
@@ -89,7 +105,7 @@ class ViewController: UITableViewController {
 	}
 
 	private func isOriginal(word: String) -> Bool {
-		word != title?.lowercased() && !usedWords.contains(word)
+		word != currentWord && !usedWords.contains(word)
 	}
 
 	private func isReal(word: String) -> Bool {
